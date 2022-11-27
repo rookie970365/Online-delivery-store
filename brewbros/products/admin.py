@@ -12,6 +12,7 @@ class ProductKindAdmin(admin.ModelAdmin):
     list_display_links = "pk", "name"
     prepopulated_fields = {"slug": ("name",)}
 
+
 @admin.register(ProductOrigin)
 class ProductOriginAdmin(admin.ModelAdmin):
     list_display = "pk", "origin"
@@ -22,7 +23,7 @@ class ProductOriginAdmin(admin.ModelAdmin):
 class ProductAdmin(admin.ModelAdmin):
     list_display = "pk", "name", "kind", "price", "description", "archived"
     list_display_links = "pk", "name", "price"
-    ordering = "price", "pk",
+    ordering = "name", "pk",
     prepopulated_fields = {"slug": ("name",)}
 
 
