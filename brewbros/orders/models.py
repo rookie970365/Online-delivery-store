@@ -12,7 +12,7 @@ class Order(models.Model):
     created = models.DateTimeField(auto_now_add=True)
     updated = models.DateTimeField(auto_now=True)
     paid = models.BooleanField(default=False)
-
+    braintree_id = models.CharField(max_length=150, blank=True)
     # order_key = models.CharField(max_length=200)
     # coupon = models.ForeignKey(Coupon, related_name='orders', null=True, blank=True)
     # discount = models.IntegerField(default=0, validators=[MinValueValidator(0), MaxValueValidator(100)])

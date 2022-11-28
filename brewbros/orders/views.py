@@ -1,4 +1,5 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
+from django.urls import reverse
 from .models import OrderItem
 from .forms import OrderCreateForm
 from cart.cart import Cart
@@ -17,8 +18,11 @@ def order_create(request):
                                          price=item['price'],
                                          quantity=item['quantity'])
             cart.clear()
+            # вызов асинхронной задачи, Celery должен быть запущен
             notify_order_created.delay(order.id)
-            return render(request, 'myauth/me.html', {'order': order})
+            # устанавливаем идентификатор заказа в текущем сеансе с помощью ключа order_id сеанса
+            request.session['order_id'] = order.id
+            return redirect(reverse('payment:process'))
     else:
         form = OrderCreateForm
     return render(request, 'orders/create.html', {'cart': cart, 'form': form})

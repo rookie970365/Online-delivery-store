@@ -11,7 +11,18 @@ https://docs.djangoproject.com/en/4.1/ref/settings/
 """
 
 from pathlib import Path
+import braintree
 
+BRAINTREE_MERCHANT_ID = 'f2rwrg6mcbr8jp8m'  # Merchant ID
+BRAINTREE_PUBLIC_KEY = 'rr6525vr2296g3f7'   # Public Key
+BRAINTREE_PRIVATE_KEY = '83ea1d54766737552f85b1ad07b83b11'  # Private key
+
+BRAINTREE_CONF = braintree.Configuration(
+    braintree.Environment.Sandbox,
+    BRAINTREE_MERCHANT_ID,
+    BRAINTREE_PUBLIC_KEY,
+    BRAINTREE_PRIVATE_KEY
+)
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
@@ -47,7 +58,8 @@ INSTALLED_APPS = [
     "products.apps.ProductsConfig",
     "cart.apps.CartConfig",
     "orders.apps.OrdersConfig",
-    "blog.apps.BlogConfig"
+    "blog.apps.BlogConfig",
+    "payment.apps.PaymentConfig",
 ]
 
 MIDDLEWARE = [

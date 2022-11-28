@@ -13,7 +13,7 @@ def home(request: HttpRequest):
 
 def shop(request: HttpRequest):
     main = Product.objects.select_related("kind").prefetch_related("origin").filter(archived=False).order_by(
-        "price").all()
+         "-price", "name").all()
     kind = ProductKind.objects.all()
     form1 = FilterByKindForm()
     if request.method == "POST":
